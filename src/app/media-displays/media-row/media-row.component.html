@@ -1,0 +1,32 @@
+<div class="media-row">
+  <div class="media-title">
+    <h2>{{rowTitle}}</h2>
+    <button type="button" *ngIf="refreshable" mat-icon-button color="accent" (click)="emitRefresh()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <div class="media-buttons">
+      <button type="button" mat-button color="primary" aria-label="Previous Group of Media Items" (click)="prev()" [disabled]="atStart">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button type="button" mat-button color="primary" aria-label="Next Group of Media Items" (click)="next()" [disabled]="atEnd">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="swiper-container" [swiper]="config" (swiperTransitionEnd)="updateSwiper()">
+    <div class="swiper-wrapper">
+      <div *ngFor="let id of mediaIds" class ="swiper-slide" [class.swiper-slide-wide]="useFanart(id)">
+        <app-media-item [id]="id" [fanart]="useFanart(id)" type="movie"></app-media-item>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div *ngFor="let item of mediaRow.items" class="media-row-item">
+    <img [src]="item.posterUri" alt="Media Poster" />
+    <a routerLink="/" aria-label="View Media"></a>
+    <button type="button" (click)="playMedia(item.id)" aria-label="Play Media"></button>
+  </div>-->
+</div>
+<div *ngIf="!mediaIds">
+  TODO: Add loading...
+</div>

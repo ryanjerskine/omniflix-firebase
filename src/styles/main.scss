@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #333333; }
+img { display: block; width: 100%; }
+
+/* Faster Animations */
+.animated.faster {
+  -webkit-animation-duration: .25s;
+  animation-duration: .25s;
+}
+
+/* Material Theme */
+@import './theme.scss';
+
+// @import '~swiper/dist/css/swiper.min.css';
+
+// Remove blue outline on buttons
+/*
+button:focus {
+  outline:0;
+}
+.bg-red {
+  background-color: #eb473d!important;
+}
+.border-red {
+  border-color: #eb473d!important;
+}
+.cdk-overlay-container {
+  z-index: 1040;
+}
+.color-grey {
+  color: grey;
+}*/

@@ -1,0 +1,65 @@
+@import '../../../styles/theme.scss';
+
+/*
+  NOTE: Movie posters are typically 2000x3000
+  Possible sizes:
+  - 180x270 and 480x270
+  - 150x225 and 400x225
+*/
+
+::ng-deep .media-row {
+  margin-bottom: 16px;
+  > .media-title {
+    position: relative;
+    padding-bottom: 8px;
+    h2 {
+      display: inline-block;
+    }
+    > .mat-icon-button {
+      position: relative;
+      top: -4px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      margin-left: 5px;
+    }
+    > .media-buttons {
+      .mat-icon {
+        font-size: 34px;
+        height: 34px;
+        width: 34px;
+      }
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      > button {
+        min-width: 0;
+        padding: 0 8px;
+        &:first-of-type {
+
+        }
+        &:last-of-type {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  > .swiper-container {
+    height: auto;
+    .swiper-slide {
+      height: auto;
+      width: 180px;
+      img { height: 264px; }
+      &.swiper-slide-wide {
+        width: 480px;
+      }
+      &:hover {
+        > .image-wrapper {
+          .mat-progress-bar {
+            bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+}

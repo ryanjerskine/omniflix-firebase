@@ -1,0 +1,37 @@
+<ng-container *ngIf="mediaItem$ | async as mediaItem; else loading">
+  <div class="image-wrapper" [class.menu-active]="menuOpen">
+    <img *ngIf="fanart && size === 'large'" [src]="mediaItem.fanartUri" alt="Media for {{mediaItem.title}}" />
+    <img *ngIf="fanart && size !== 'large'" [src]="mediaItem.fanartThumbnailUri" alt="Media for {{mediaItem.title}}" />
+    <img *ngIf="!fanart && size === 'large'" [src]="mediaItem.posterUri" alt="Media for {{mediaItem.title}}" />
+    <img *ngIf="!fanart && size !== 'large'" [src]="mediaItem.posterThumbnailUri" alt="Media for {{mediaItem.title}}" />
+    <mat-progress-bar *ngIf="mediaItem.progressPercent !== 0" mode="determinate" [value]="mediaItem.progressPercent"></mat-progress-bar>
+    <a [routerLink]="getRouterLink()" mat-button></a>
+    <mat-checkbox color="primary" [checked]="mediaItem.watched"
+                                  (change)="watched(!mediaItem.watched)"
+                                  [class.mat-checkbox-large]="size === 'large'"
+                                  [class.selected]="mediaItem.watched"
+                                  class="animated slideInLeft faster"></mat-checkbox>
+    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" (menuOpened)="toggleMenu()" (menuClosed)="toggleMenu()" class="animated slideInRight faster" aria-label="Open menu for media">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="edit()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>watch_later</mat-icon>
+        <span>Add to watchlist</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>report_problem</mat-icon>
+        <span>Report a problem</span>
+      </button>
+    </mat-menu>
+  </div>
+  <a *ngIf="size !== 'large'" [routerLink]="getRouterLink()" mat-button>{{mediaItem.title}}</a>
+  <span *ngIf="size !== 'large'" class="mat-caption">{{mediaItem.subtitle}}</span>
+</ng-container>
+<ng-template #loading>
+  <!-- TOOD: Add loading -->
+</ng-template>

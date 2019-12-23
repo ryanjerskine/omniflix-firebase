@@ -1,0 +1,47 @@
+<div *ngIf="movie$ | async as movie; else loading">
+  <div class="left">
+    <app-media-item [id]="movie.id" type="movie" size="large"></app-media-item>
+  </div>
+  <div class="right">
+    <h1>{{movie.title}}</h1>
+    <h2 class="mat-caption">{{getReleaseYear(movie.released)}}</h2>
+    <div class="action-wrapper">
+      <button type="button" mat-raised-button [color]="getWatchedButtonColor(movie.watched)" (click)="watch(movie.id, !movie.watched)">
+        {{movie.watched ? 'Watched' : 'Unwatched'}}
+      </button>
+      <h2>{{getRuntime(movie.runtime)}}</h2>
+    </div>
+    <hr>
+    <div class="play-wrapper">
+      <button type="button" mat-raised-button color="primary" class="play-button">Resume</button>
+      <button type="button" mat-raised-button color="accent" class="play-button">Play from Beginning</button>
+      <span>
+        {{movie.rating}}
+      </span>
+    </div>
+    <div class="row-wrapper rating-wrapper">
+      <img src="/assets/logos/imdb.svg">
+      <span>{{movie.imdbRating}}</span>
+    </div>
+    <div class="row-wrapper">
+      <h3>Genres</h3>
+      <a href="">Action</a> | <a href="">Adventure</a> | <a href="">Comedy</a>
+    </div>
+    <div class="row-wrapper">
+      <h3>Information</h3>
+      <label>Written By:</label>
+      <span>Some Person</span>
+      <label>Directed By:</label>
+      <span>Another Person</span>
+      <label>Studio</label>
+      <span>Netflix</span>
+    </div>
+    <div class="row-wrapper summary-wrapper">
+      <h3>Summary</h3>
+      <p>{{movie.summary}}</p>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <!-- TOOD: Add loading -->
+</ng-template>

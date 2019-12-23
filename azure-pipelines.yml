@@ -1,0 +1,47 @@
+trigger:
+- master
+
+variables:
+- group: pipeline-variables
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+  demands: npm
+
+steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- task: Npm@1
+  displayName: 'Installing dependencies'
+  inputs:
+    command: install
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace environment variables'
+  inputs:
+    targetFiles: '**/*environment.prod.ts'
+
+- task: Npm@1
+  displayName: 'Building application'
+  inputs:
+    command: custom
+    customCommand: run build -- --prod
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens in **/*.js'
+  inputs:
+    rootDirectory: dist
+    targetFiles: '**/*.js'
+    escapeType: none
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+
+- task: Npm@1
+  displayName: 'Deploy to Firebase'
+  inputs:
+    command: custom
+    customCommand: run deploy -- --token $(FIREBASE_TOKEN)

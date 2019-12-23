@@ -1,0 +1,7 @@
+<app-sidenav *ngIf="user$ | async as user; else login" [displayName]="user?.displayName" (signOut)="signOut()">
+  <router-outlet></router-outlet>
+  <app-media-editor-listener></app-media-editor-listener>
+</app-sidenav>
+<ng-template #login>
+  <app-login></app-login>
+</ng-template>

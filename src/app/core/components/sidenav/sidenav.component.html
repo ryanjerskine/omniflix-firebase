@@ -1,0 +1,48 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button aria-label="Example icon-button with a heart icon" (click)="toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    TODO: Add stuff here
+    <div class="user-menu">
+      <button mat-button aria-label="Open user settings menu" [matMenuTriggerFor]="userMenu">
+        <span class="user-name">{{displayName}}</span>
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu"  yPosition="below" [overlapTrigger]="false">
+        <a mat-menu-item [routerLink]="['settings']">
+          <mat-icon>settings</mat-icon> Settings
+        </a>
+        <button mat-menu-item (click)="emitSignOut()">
+          <mat-icon>exit_to_app</mat-icon> Sign Out
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav [@openCloseSidenav]="isOpen ? 'open' : 'closed'" #sidenav mode="side" opened class="example-sidenav" color="primary">
+    <mat-nav-list>
+      <mat-list-item [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon matListIcon>home</mat-icon>
+        <h3 mat-line>Home</h3>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/movies']" routerLinkActive="active">
+        <mat-icon matListIcon>local_movies</mat-icon>
+        <h3 mat-line>Movies</h3>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/tv-shows']" routerLinkActive="active">
+        <mat-icon matListIcon>tv</mat-icon>
+        <h3 mat-line>TV Shows</h3>
+      </mat-list-item>
+      <h3 matSubheader>Actions</h3>
+      <mat-list-item>
+        <mat-icon matListIcon>swap_vert</mat-icon>
+        <h3 mat-line>Scan Library</h3>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" [class.sidenav-collapsed]="!isOpen">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

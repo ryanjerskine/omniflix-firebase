@@ -1,0 +1,13 @@
+<p>movies-dashboard works!</p>
+<button type="button" mat-raised-button color="primary" (click)="addMedia()">
+  Seed Movies
+</button>
+<button type="button" mat-raised-button color="primary" (click)="populateRecommended()">
+  Toggle Recommended
+</button>
+<div class="movies-dashboard">
+  <app-media-row [mediaIds]="recommendedMovies$ | async" rowTitle="Recommended Movies"></app-media-row>
+</div>
+<div class="movies-dashboard">
+  <app-media-row [mediaIds]="randomMovies$ | async" rowTitle="Random Movies" refreshable="true" (refresh)="randomize()"></app-media-row>
+</div>
